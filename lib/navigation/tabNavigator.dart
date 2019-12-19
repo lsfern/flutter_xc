@@ -16,7 +16,11 @@ class _TabNavigatorState extends State<TabNavigator> {
   final PageController _controller = PageController(
     initialPage: 0,
   );
-
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
