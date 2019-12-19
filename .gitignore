@@ -102,3 +102,6 @@ Blog
 About
  Octotree
 Login to unlock more features
+# CocoaPods
+Pods/
+/ios/Podfile.lock
