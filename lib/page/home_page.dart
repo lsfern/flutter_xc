@@ -6,6 +6,7 @@ import 'package:flutter_jd/model/home_model.dart';
 import 'package:flutter_jd/model/local_nav_list_module.dart';
 import 'package:flutter_jd/model/sale_box_module.dart';
 import 'package:flutter_jd/widget/grid_view.dart';
+import 'package:flutter_jd/widget/loading_view.dart';
 import 'package:flutter_jd/widget/local_nav.dart';
 import 'package:flutter_jd/widget/sale_box.dart';
 import 'package:flutter_jd/widget/sub_nav.dart';
@@ -18,11 +19,12 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 }
 
-class HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
-  var resultString = "";
+class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
+  // appBar透明度
   double appBarAlpha = 0;
-  bool isDY = false;
+
+  // 是否显示加载框
+  bool isShowLoading = true;
 
   // 首页Banner
   List<BannerList> bannerList = [];
@@ -54,22 +56,28 @@ class HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    loadData();
+    _handleRefresh();
   }
 
-  loadData() async {
+  Future<Null> _handleRefresh() async {
     try {
       HomeModel homeModel = await HomeDao.getHomeData();
+      await Future.delayed(Duration(seconds: 2));
       setState(() {
         localNavList = homeModel.localNavList;
         bannerList = homeModel.bannerList;
         gridNav = homeModel.gridNav;
         subNavList = homeModel.subNavList;
         salesBox = homeModel.salesBox;
+        isShowLoading = false;
       });
     } catch (e) {
       print(e);
+      setState(() {
+        isShowLoading = false;
+      });
     }
+    return null;
   }
 
   @override
@@ -77,49 +85,13 @@ class HomePageState extends State<HomePage>
     return Scaffold(
       backgroundColor: Color(0xffff2f2f2),
       body: Stack(
-        children: <Widget>[_mainContent(), _appBar()],
+        children: <Widget>[_mainContent, _appBar],
       ),
     );
   }
 
-  /// Set Content
-  Widget _mainContent() {
-    return MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child: NotificationListener(
-            onNotification: (scrollNotification) {
-              if (scrollNotification is ScrollUpdateNotification &&
-                  scrollNotification.depth == 0) {
-                _onScroll(scrollNotification.metrics.pixels);
-              }
-              return false;
-            },
-            child: ListView(
-              children: <Widget>[
-                Container(height: 200, child: SpView(bannerList: bannerList)),
-                Container(
-                  padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
-                  child: LocalNav(localNavList: localNavList,),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
-                  child: MyGridView(gridNav: gridNav),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
-                  child: SubNav(subNavList: subNavList),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
-                  child: SaleBoxView(salesBox: salesBox),
-                ),
-              ],
-            )));
-  }
-
   /// Set AppBar
-  Widget _appBar() {
+  Widget get _appBar {
     return Opacity(
       opacity: appBarAlpha,
       child: Container(
@@ -134,4 +106,55 @@ class HomePageState extends State<HomePage>
       ),
     );
   }
+
+  /// Set Content
+  Widget get _mainContent {
+    return LoadingView(
+        isShowLoading: isShowLoading,
+        child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: RefreshIndicator(
+              onRefresh: _handleRefresh,
+              child: NotificationListener(
+                  onNotification: (scrollNotification) {
+                    if (scrollNotification is ScrollUpdateNotification &&
+                        scrollNotification.depth == 0) {
+                      _onScroll(scrollNotification.metrics.pixels);
+                    }
+                    return false;
+                  },
+                  child: _listView),
+            )));
+  }
+
+  /// ListView
+  Widget get _listView {
+    return ListView(
+      children: <Widget>[
+        Container(height: 200, child: SpView(bannerList: bannerList)),
+        Container(
+          padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+          child: LocalNav(
+            localNavList: localNavList,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+          child: MyGridView(gridNav: gridNav),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+          child: SubNav(subNavList: subNavList),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+          child: SaleBoxView(salesBox: salesBox),
+        ),
+      ],
+    );
+  }
+  /// 保持页面状态
+  @override
+  bool get wantKeepAlive => true;
 }
