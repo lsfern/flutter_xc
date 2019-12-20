@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_jd/model/local_nav_list_module.dart';
 import 'package:flutter_jd/widget/web_view.dart';
 
-
 class LocalNav extends StatelessWidget {
   final List<LocalNavList> localNavList;
 
@@ -34,8 +33,6 @@ class LocalNav extends StatelessWidget {
       children: items,
     );
   }
-
-
 
   Widget _item(BuildContext context, LocalNavList model) {
     return GestureDetector(

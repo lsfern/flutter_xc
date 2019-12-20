@@ -1,12 +1,14 @@
+import 'package:flutter_jd/model/local_nav_list_module.dart';
+
 class SalesBox {
   String icon;
   String moreUrl;
-  BigCard1 bigCard1;
-  BigCard2 bigCard2;
-  SmallCard1 smallCard1;
-  SmallCard2 smallCard2;
-  SmallCard3 smallCard3;
-  SmallCard4 smallCard4;
+  LocalNavList bigCard1;
+  LocalNavList bigCard2;
+  LocalNavList smallCard1;
+  LocalNavList smallCard2;
+  LocalNavList smallCard3;
+  LocalNavList smallCard4;
 
   SalesBox(
       {this.icon,
@@ -22,22 +24,22 @@ class SalesBox {
     icon = json['icon'];
     moreUrl = json['moreUrl'];
     bigCard1 = json['bigCard1'] != null
-        ? new BigCard1.fromJson(json['bigCard1'])
+        ? new LocalNavList.fromJson(json['bigCard1'])
         : null;
     bigCard2 = json['bigCard2'] != null
-        ? new BigCard2.fromJson(json['bigCard2'])
+        ? new LocalNavList.fromJson(json['bigCard2'])
         : null;
     smallCard1 = json['smallCard1'] != null
-        ? new SmallCard1.fromJson(json['smallCard1'])
+        ? new LocalNavList.fromJson(json['smallCard1'])
         : null;
     smallCard2 = json['smallCard2'] != null
-        ? new SmallCard2.fromJson(json['smallCard2'])
+        ? new LocalNavList.fromJson(json['smallCard2'])
         : null;
     smallCard3 = json['smallCard3'] != null
-        ? new SmallCard3.fromJson(json['smallCard3'])
+        ? new LocalNavList.fromJson(json['smallCard3'])
         : null;
     smallCard4 = json['smallCard4'] != null
-        ? new SmallCard4.fromJson(json['smallCard4'])
+        ? new LocalNavList.fromJson(json['smallCard4'])
         : null;
   }
 
@@ -63,138 +65,6 @@ class SalesBox {
     if (this.smallCard4 != null) {
       data['smallCard4'] = this.smallCard4.toJson();
     }
-    return data;
-  }
-}
-
-class BigCard1 {
-  String icon;
-  String url;
-  String title;
-
-  BigCard1({this.icon, this.url, this.title});
-
-  BigCard1.fromJson(Map<String, dynamic> json) {
-    icon = json['icon'];
-    url = json['url'];
-    title = json['title'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['icon'] = this.icon;
-    data['url'] = this.url;
-    data['title'] = this.title;
-    return data;
-  }
-}
-
-class BigCard2 {
-  String icon;
-  String url;
-  String title;
-
-  BigCard2({this.icon, this.url, this.title});
-
-  BigCard2.fromJson(Map<String, dynamic> json) {
-    icon = json['icon'];
-    url = json['url'];
-    title = json['title'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['icon'] = this.icon;
-    data['url'] = this.url;
-    data['title'] = this.title;
-    return data;
-  }
-}
-
-class SmallCard1 {
-  String icon;
-  String url;
-  String title;
-
-  SmallCard1({this.icon, this.url, this.title});
-
-  SmallCard1.fromJson(Map<String, dynamic> json) {
-    icon = json['icon'];
-    url = json['url'];
-    title = json['title'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['icon'] = this.icon;
-    data['url'] = this.url;
-    data['title'] = this.title;
-    return data;
-  }
-}
-
-class SmallCard2 {
-  String icon;
-  String url;
-  String title;
-
-  SmallCard2({this.icon, this.url, this.title});
-
-  SmallCard2.fromJson(Map<String, dynamic> json) {
-    icon = json['icon'];
-    url = json['url'];
-    title = json['title'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['icon'] = this.icon;
-    data['url'] = this.url;
-    data['title'] = this.title;
-    return data;
-  }
-}
-
-class SmallCard3 {
-  String icon;
-  String url;
-  String title;
-
-  SmallCard3({this.icon, this.url, this.title});
-
-  SmallCard3.fromJson(Map<String, dynamic> json) {
-    icon = json['icon'];
-    url = json['url'];
-    title = json['title'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['icon'] = this.icon;
-    data['url'] = this.url;
-    data['title'] = this.title;
-    return data;
-  }
-}
-
-class SmallCard4 {
-  String icon;
-  String url;
-  String title;
-
-  SmallCard4({this.icon, this.url, this.title});
-
-  SmallCard4.fromJson(Map<String, dynamic> json) {
-    icon = json['icon'];
-    url = json['url'];
-    title = json['title'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['icon'] = this.icon;
-    data['url'] = this.url;
-    data['title'] = this.title;
     return data;
   }
 }

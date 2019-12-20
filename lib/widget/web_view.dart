@@ -17,7 +17,7 @@ class WebView extends StatefulWidget {
       this.statusBarColor,
       this.title,
       this.hideAppBar,
-      this.backForbid});
+      this.backForbid = false});
 
   @override
   _WebViewStatus createState() => _WebViewStatus();
@@ -71,11 +71,11 @@ class _WebViewStatus extends State<WebView> {
 
   @override
   void dispose() {
-    super.dispose();
     _onHttpError.cancel();
     _onStateChanged.cancel();
     _onUrlChanged.cancel();
     webViewReference.dispose();
+    super.dispose();
   }
 
   @override
@@ -118,12 +118,16 @@ class _WebViewStatus extends State<WebView> {
       );
     }
     return Container(
+      padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
+      color: backgroundColor,
       child: FractionallySizedBox(
         widthFactor: 1,
         child: Stack(
           children: <Widget>[
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pop();
+              },
               child: Container(
                 margin: EdgeInsets.only(left: 10),
                 child: Icon(

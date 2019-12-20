@@ -40,11 +40,16 @@ class MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('我的'),
-          centerTitle: true,
-          elevation: 1.0,
-        ),
+        appBar: PreferredSize(
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                  gradient:
+                      LinearGradient(colors: [Colors.yellow, Colors.pink])),
+              child: SafeArea(child: Text("我的")),
+            ),
+            preferredSize: Size(double.infinity, 60)),
         body: RefreshIndicator(
           child: ListView(controller: _controller, children: _buildList()),
           onRefresh: _handleRefresh,

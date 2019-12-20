@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_jd/dao/home_dao.dart';
 import 'package:flutter_jd/model/banner_list_module.dart';
+import 'package:flutter_jd/model/grid_nav_module.dart';
 import 'package:flutter_jd/model/home_model.dart';
 import 'package:flutter_jd/model/local_nav_list_module.dart';
-import 'package:flutter_jd/widget/grid_nav.dart';
+import 'package:flutter_jd/model/sale_box_module.dart';
+import 'package:flutter_jd/widget/grid_view.dart';
+import 'package:flutter_jd/widget/local_nav.dart';
+import 'package:flutter_jd/widget/sale_box.dart';
+import 'package:flutter_jd/widget/sub_nav.dart';
 import 'package:flutter_jd/widget/swiper_view.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -14,11 +18,26 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   var resultString = "";
   double appBarAlpha = 0;
-  List<BannerList> bannerlist = [];
+  bool isDY = false;
+
+  // 首页Banner
+  List<BannerList> bannerList = [];
+
+  // 首页LocalNav
   List<LocalNavList> localNavList = [];
+
+  // 首页活动Nav
+  List<LocalNavList> subNavList = [];
+
+  // 首页GridNav
+  GridNav gridNav;
+
+  // 首页Box
+  SalesBox salesBox;
 
   _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
@@ -43,7 +62,10 @@ class HomePageState extends State<HomePage> {
       HomeModel homeModel = await HomeDao.getHomeData();
       setState(() {
         localNavList = homeModel.localNavList;
-        bannerlist = homeModel.bannerList;
+        bannerList = homeModel.bannerList;
+        gridNav = homeModel.gridNav;
+        subNavList = homeModel.subNavList;
+        salesBox = homeModel.salesBox;
       });
     } catch (e) {
       print(e);
@@ -75,26 +97,23 @@ class HomePageState extends State<HomePage> {
             },
             child: ListView(
               children: <Widget>[
-                Container(height: 200, child: SpView(bannerList: bannerlist)),
+                Container(height: 200, child: SpView(bannerList: bannerList)),
                 Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.fromLTRB(7, 4, 4, 7),
-                  child: LocalNav(
-                    localNavList: localNavList,
-                  ),
+                  padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                  child: LocalNav(localNavList: localNavList,),
                 ),
                 Container(
-                  height: 800,
-                  child: ListTile(
-                    title: Text("q"),
-                    subtitle: Text('This is HomePage subtitle'),
-                    selected: true,
-                    leading: Icon(
-                      Icons.account_circle,
-                      size: 20,
-                    ),
-                  ),
-                )
+                  padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+                  child: MyGridView(gridNav: gridNav),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+                  child: SubNav(subNavList: subNavList),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+                  child: SaleBoxView(salesBox: salesBox),
+                ),
               ],
             )));
   }

@@ -3,14 +3,13 @@ import 'package:flutter_jd/model/config_module.dart';
 import 'package:flutter_jd/model/grid_nav_module.dart';
 import 'package:flutter_jd/model/local_nav_list_module.dart';
 import 'package:flutter_jd/model/sale_box_module.dart';
-import 'package:flutter_jd/model/sub_nav_list_module.dart';
 
 class HomeModel {
   ConfigModule config;
   List<BannerList> bannerList;
   List<LocalNavList> localNavList;
   GridNav gridNav;
-  List<SubNavList> subNavList;
+  List<LocalNavList> subNavList;
   SalesBox salesBox;
 
   HomeModel(
@@ -22,8 +21,9 @@ class HomeModel {
       this.salesBox});
 
   HomeModel.fromJson(Map<String, dynamic> json) {
-    config =
-        json['config'] != null ? new ConfigModule.fromJson(json['config']) : null;
+    config = json['config'] != null
+        ? new ConfigModule.fromJson(json['config'])
+        : null;
     if (json['bannerList'] != null) {
       bannerList = new List<BannerList>();
       json['bannerList'].forEach((v) {
@@ -39,9 +39,9 @@ class HomeModel {
     gridNav =
         json['gridNav'] != null ? new GridNav.fromJson(json['gridNav']) : null;
     if (json['subNavList'] != null) {
-      subNavList = new List<SubNavList>();
+      subNavList = new List<LocalNavList>();
       json['subNavList'].forEach((v) {
-        subNavList.add(new SubNavList.fromJson(v));
+        subNavList.add(new LocalNavList.fromJson(v));
       });
     }
     salesBox = json['salesBox'] != null
@@ -72,4 +72,3 @@ class HomeModel {
     return data;
   }
 }
-
