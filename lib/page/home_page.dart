@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_jd/dao/home_dao.dart';
 import 'package:flutter_jd/model/banner_list_module.dart';
+import 'package:flutter_jd/model/config_module.dart';
 import 'package:flutter_jd/model/grid_nav_module.dart';
 import 'package:flutter_jd/model/home_model.dart';
 import 'package:flutter_jd/model/local_nav_list_module.dart';
@@ -46,6 +47,9 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   // 首页Box
   SalesBox salesBox;
 
+  // 配置Module
+  ConfigModule configModule;
+
   _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
     if (alpha < 0) {
@@ -74,6 +78,7 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
         gridNav = homeModel.gridNav;
         subNavList = homeModel.subNavList;
         salesBox = homeModel.salesBox;
+        configModule = homeModel.config;
         isShowLoading = false;
       });
     } catch (e) {
@@ -185,7 +190,12 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   bool get wantKeepAlive => true;
 
   _jumpToSearch() {
-    NavigatorUtil.push(context, SearchPage());
+    NavigatorUtil.push(
+        context,
+        SearchPage(
+          hint: SEARCH_DEFAULT_TEXT,
+          searchUrl: configModule.searchUrl,
+        ));
   }
 
   _jumpToSpeak() {}

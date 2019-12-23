@@ -30,7 +30,14 @@ class _TabNavigatorState extends State<TabNavigator> {
       body: PageView(
         controller: _controller,
         onPageChanged: _onPageChanged,
-        children: <Widget>[HomePage(), SearchPage(), TravelPage(), MyPage()],
+        children: <Widget>[
+          HomePage(),
+          SearchPage(
+            hideLeft: true,
+          ),
+          TravelPage(),
+          MyPage()
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

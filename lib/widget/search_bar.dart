@@ -55,37 +55,38 @@ class _SearchBarState extends State<SearchBar> {
 
   Widget get _genNormal {
     return Container(
+        padding: EdgeInsets.fromLTRB(6, 5, 10, 5),
         child: Row(children: <Widget>[
-      _wrapTap(
-          Container(
-            child: widget?.hideLeft ?? false
-                ? null
-                : Icon(
-                    Icons.arrow_back_ios,
-                    size: 26,
-                    color: Colors.grey,
-                  ),
+          _wrapTap(
+              Container(
+                child: widget?.hideLeft ?? false
+                    ? null
+                    : Icon(
+                        Icons.arrow_back_ios,
+                        size: 26,
+                        color: Colors.grey,
+                      ),
+              ),
+              widget.leftButtonClick),
+          Expanded(
+            flex: 1,
+            child: _inputBox(),
           ),
-          widget.leftButtonClick),
-      Expanded(
-        flex: 1,
-        child: _inputBox(),
-      ),
-      _wrapTap(
-          Container(
-            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-            child: Text(
-              '搜索',
-              style: TextStyle(fontSize: 20, color: Colors.blue),
-            ),
-          ),
-          widget.rightButtonClick)
-    ]));
+          _wrapTap(
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                child: Text(
+                  '搜索',
+                  style: TextStyle(fontSize: 20, color: Colors.blue),
+                ),
+              ),
+              widget.rightButtonClick)
+        ]));
   }
 
   Widget get _genNorHome {
     return Container(
-        padding: EdgeInsets.only(top: 20,bottom: 10),
+        padding: EdgeInsets.only(top: 20, bottom: 10),
         child: Row(children: <Widget>[
           _wrapTap(
               Container(
