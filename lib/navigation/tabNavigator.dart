@@ -16,17 +16,20 @@ class _TabNavigatorState extends State<TabNavigator> {
   final PageController _controller = PageController(
     initialPage: 0,
   );
+
   @override
   void dispose() {
     super.dispose();
     _controller.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 //      appBar: AppBar(title: Text('携程'), centerTitle: true, elevation: 0.0),
       body: PageView(
         controller: _controller,
+        onPageChanged: _onPageChanged,
         children: <Widget>[HomePage(), SearchPage(), TravelPage(), MyPage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -42,7 +45,7 @@ class _TabNavigatorState extends State<TabNavigator> {
           _bottomItem(Icons.home, "首页", 0),
           _bottomItem(Icons.search, "搜索", 1),
           _bottomItem(Icons.camera_alt, "旅拍", 2),
-          _bottomItem(Icons.camera_alt, "我的", 3),
+          _bottomItem(Icons.supervisor_account, "我的", 3),
         ],
       ),
     );
@@ -55,7 +58,7 @@ class _TabNavigatorState extends State<TabNavigator> {
           color: _defaultColor,
         ),
         activeIcon: Icon(
-          Icons.home,
+          icon,
           color: _activeColor,
         ),
         title: Text(
@@ -63,5 +66,9 @@ class _TabNavigatorState extends State<TabNavigator> {
           style: TextStyle(
               color: _currentIndex != index ? _defaultColor : _activeColor),
         ));
+  }
+
+  void _onPageChanged(int value) {
+    print(value);
   }
 }

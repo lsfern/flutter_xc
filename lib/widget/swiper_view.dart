@@ -4,9 +4,10 @@ import 'package:flutter_jd/widget/web_view.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class SpView extends StatelessWidget {
-  List<BannerList> bannerList;
+  final List<BannerList> bannerList;
 
   SpView({Key key, @required this.bannerList}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Swiper(
@@ -15,11 +16,11 @@ class SpView extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => WebView(
-                url: bannerList[index].url,
-                statusBarColor: 'f0f0f0',
-              )));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => WebView(
+                      url: bannerList[index].url,
+                      statusBarColor: 'f0f0f0',
+                    )));
           },
           child: Image.network(
             bannerList[index].icon,
