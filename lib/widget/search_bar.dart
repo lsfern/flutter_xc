@@ -85,38 +85,39 @@ class _SearchBarState extends State<SearchBar> {
 
   Widget get _genNorHome {
     return Container(
+        padding: EdgeInsets.only(top: 20,bottom: 10),
         child: Row(children: <Widget>[
-      _wrapTap(
-          Container(
-              padding: EdgeInsets.fromLTRB(6, 5, 5, 5),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    '上海',
-                    style: TextStyle(color: _homeFontColor(), fontSize: 14),
-                  ),
-                  Icon(
-                    Icons.expand_more,
+          _wrapTap(
+              Container(
+                  padding: EdgeInsets.fromLTRB(6, 5, 5, 5),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        '上海',
+                        style: TextStyle(color: _homeFontColor(), fontSize: 14),
+                      ),
+                      Icon(
+                        Icons.expand_more,
+                        color: _homeFontColor(),
+                        size: 22,
+                      )
+                    ],
+                  )),
+              widget.leftButtonClick),
+          Expanded(
+            flex: 1,
+            child: _inputBox(),
+          ),
+          _wrapTap(
+              Container(
+                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  child: Icon(
+                    Icons.comment,
+                    size: 26,
                     color: _homeFontColor(),
-                    size: 22,
-                  )
-                ],
-              )),
-          widget.leftButtonClick),
-      Expanded(
-        flex: 1,
-        child: _inputBox(),
-      ),
-      _wrapTap(
-          Container(
-              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-              child: Icon(
-                Icons.comment,
-                size: 26,
-                color: _homeFontColor(),
-              )),
-          widget.rightButtonClick)
-    ]));
+                  )),
+              widget.rightButtonClick)
+        ]));
   }
 
   _inputBox() {
