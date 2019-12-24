@@ -16,6 +16,7 @@ import 'package:flutter_jd/widget/sale_box.dart';
 import 'package:flutter_jd/widget/search_bar.dart';
 import 'package:flutter_jd/widget/sub_nav.dart';
 import 'package:flutter_jd/widget/swiper_view.dart';
+import 'package:flutter_splash_screen/flutter_splash_screen.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 const SEARCH_DEFAULT_TEXT = "网红打卡地 景点 酒店 美食";
@@ -64,6 +65,9 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
 
   @override
   void initState() {
+    Future.delayed(Duration(milliseconds: 600), () {
+      FlutterSplashScreen.hide();
+    });
     super.initState();
     _handleRefresh();
   }

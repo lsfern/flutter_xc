@@ -30,7 +30,7 @@ class HeroApp extends StatelessWidget {
     timeDilation = 3.0;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hero first app'),
+        title: Text('携程'),
       ),
       body: GestureDetector(
         child: Hero(
