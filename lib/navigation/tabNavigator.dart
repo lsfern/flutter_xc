@@ -38,6 +38,7 @@ class _TabNavigatorState extends State<TabNavigator> {
           TravelPage(),
           MyPage()
         ],
+        physics: NeverScrollableScrollPhysics(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

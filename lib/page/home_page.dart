@@ -71,7 +71,7 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   Future<Null> _handleRefresh() async {
     try {
       HomeModel homeModel = await HomeDao.getHomeData();
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(seconds: 1));
       setState(() {
         localNavList = homeModel.localNavList;
         bannerList = homeModel.bannerList;
